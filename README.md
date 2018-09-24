@@ -130,6 +130,26 @@ The task applies the following algorithm:
 
 
 
+### httpPolling
+
+Opens an HTTP connection using the HEAD verb, polling for the requested URL.
+
+The task's attributes are:
+
+* **url**: the URL to request
+
+* **username**: the username to access the URL. Optional (default: *not set*)
+
+* **password**: the password to access the URL. Optional (default: *not set*)
+
+* **maxPolls**: the maximum number of retries before failing. Must be >= 0.  (Default: *10*)
+
+* **retryWaitInMillis**: milliseconds between two subsequent retries. Must be >= 0 (Default: *10000*)
+
+
+The task fails only after all the attempts to connect to the given URL have failed.
+
+
 ## Further references
 
 * [Introduction to Apache Ivy](https://speakerdeck.com/giancosta86/introduction-to-apache-ivy) - my presentation dedicated to Apache Ivy

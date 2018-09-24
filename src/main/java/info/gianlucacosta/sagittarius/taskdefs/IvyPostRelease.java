@@ -1,6 +1,5 @@
 package info.gianlucacosta.sagittarius.taskdefs;
 
-import info.gianlucacosta.sagittarius.util.HttpPoller;
 import info.gianlucacosta.sagittarius.util.Version;
 import org.apache.tools.ant.BuildException;
 
@@ -83,23 +82,18 @@ public class IvyPostRelease extends ReleaseRelatedTask {
                         .replaceAll("%REVISION%", ivyRevision);
 
 
-        HttpPoller httpPoller =
-                new HttpPoller(
-                        artifactUrl,
-                        artifactUrlUsername,
-                        artifactUrlPassword,
-                        artifactUrlMaxPolls,
-                        artifactUrlRetryWaitInMillis
-                );
+        HttpPolling httpPolling =
+                new HttpPolling();
+
+        httpPolling.setProject(project);
+
+        httpPolling.setUrl(artifactUrl);
+        httpPolling.setUsername(artifactUrlUsername);
+        httpPolling.setPassword(artifactUrlPassword);
+        httpPolling.setMaxPolls(artifactUrlMaxPolls);
+        httpPolling.setRetryWaitInMillis(artifactUrlRetryWaitInMillis);
 
 
-        if (!httpPoller.poll()) {
-            throw new RuntimeException(
-                    String.format(
-                            "Cannot get artifact URL '%s'",
-                            artifactUrl
-                    )
-            );
-        }
+        httpPolling.execute();
     }
 }

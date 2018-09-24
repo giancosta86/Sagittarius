@@ -1,50 +1,71 @@
-package info.gianlucacosta.sagittarius.util;
+package info.gianlucacosta.sagittarius.taskdefs;
+
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.Task;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class HttpPoller {
+public class HttpPolling extends Task {
     private static final int HTTP_SUCCESS =
             200;
 
-    private final URL url;
-    private final String username;
-    private final String password;
-    private final int maxPolls;
-    private final long retryWaitInMillis;
+    private String url;
+    private String username;
+    private String password;
+    private int maxPolls;
+    private long retryWaitInMillis;
+
+    private Project project;
 
 
-    public HttpPoller(
-            String url,
-            String username,
-            String password,
-            int maxPolls,
-            long retryWaitInMillis
-    ) {
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setMaxPolls(int maxPolls) {
+        this.maxPolls = maxPolls;
+    }
+
+    public void setRetryWaitInMillis(long retryWaitInMillis) {
+        this.retryWaitInMillis = retryWaitInMillis;
+    }
+
+    @Override
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+
+    @Override
+    public void execute() throws BuildException {
+        URL actualUrl;
+
         try {
-            this.url =
+            actualUrl =
                     new URL(url);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
-        this.username = username;
-        this.password = password;
-        this.maxPolls = maxPolls;
-        this.retryWaitInMillis = retryWaitInMillis;
-    }
-
-
-    public boolean poll() {
 
         for (int pollCount = 1; pollCount <= maxPolls; pollCount++) {
             int httpStatus =
-                    checkUrlViaHttp();
+                    checkUrlViaHttp(actualUrl);
 
             if (httpStatus == HTTP_SUCCESS) {
-                return true;
+                return;
             }
 
             if (pollCount < maxPolls) {
@@ -56,14 +77,19 @@ public class HttpPoller {
             }
         }
 
-        return false;
+        throw new RuntimeException(
+                String.format(
+                        "Cannot get URL '%s'",
+                        url
+                )
+        );
     }
 
 
-    private int checkUrlViaHttp() {
+    private int checkUrlViaHttp(URL actualUrl) {
         try {
             HttpURLConnection httpConnection =
-                    (HttpURLConnection) url.openConnection();
+                    (HttpURLConnection) actualUrl.openConnection();
 
             try {
                 if (username != null) {

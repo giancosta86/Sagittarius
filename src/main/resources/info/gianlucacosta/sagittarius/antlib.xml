@@ -2,4 +2,5 @@
 <antlib>
     <typedef name="ivyRelease" classname="info.gianlucacosta.sagittarius.taskdefs.IvyRelease"/>
     <typedef name="ivyPostRelease" classname="info.gianlucacosta.sagittarius.taskdefs.IvyPostRelease"/>
+    <typedef name="httpPolling" classname="info.gianlucacosta.sagittarius.taskdefs.HttpPolling"/>
 </antlib>
