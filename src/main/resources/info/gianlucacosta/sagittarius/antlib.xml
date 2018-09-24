@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<antlib>
+    <typedef name="ivyRelease" classname="info.gianlucacosta.sagittarius.taskdefs.IvyRelease"/>
+    <typedef name="ivyPostRelease" classname="info.gianlucacosta.sagittarius.taskdefs.IvyPostRelease"/>
+</antlib>

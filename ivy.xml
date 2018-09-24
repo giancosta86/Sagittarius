@@ -1,0 +1,10 @@
+<ivy-module version="2.0">
+    <info
+            organisation="info.gianlucacosta"
+            module="sagittarius"
+            revision="0.9"/>
+
+    <dependencies defaultconfmapping="default->default">
+        <dependency org="org.apache.ant" name="ant" rev="1.10.5"/>
+    </dependencies>
+</ivy-module>
