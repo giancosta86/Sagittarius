@@ -98,6 +98,8 @@ This task's attributes are:
 
   * **%ORGANISATION%**: Ivy's **organisation** attribute for this module
 
+  * **%ORGPATH%**: Ivy's **organisation**, with "." characters replaced by "/"
+
   * **%MODULE%**: Ivy's **module** attribute for this module
 
   * **%REVISION%**: Ivy's **revision** attribute for this module

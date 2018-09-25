@@ -78,6 +78,10 @@ public class IvyPostRelease extends ReleaseRelatedTask {
         String artifactUrl =
                 artifactUrlTemplate
                         .replaceAll("%ORGANISATION%", ivyOrganisation)
+                        .replaceAll(
+                                "%ORGPATH%",
+                                ivyOrgPath
+                        )
                         .replaceAll("%MODULE%", ivyModule)
                         .replaceAll("%REVISION%", ivyRevision);
 

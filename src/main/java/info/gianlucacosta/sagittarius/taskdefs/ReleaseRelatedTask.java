@@ -23,6 +23,8 @@ public abstract class ReleaseRelatedTask extends Task {
 
     protected String ivyOrganisation;
 
+    protected String ivyOrgPath;
+
     protected String ivyModule;
 
     protected String ivyRevision;
@@ -58,6 +60,13 @@ public abstract class ReleaseRelatedTask extends Task {
         if (ivyOrganisation == null) {
             throw new RuntimeException("You need to perform an Ivy resolution task before this one");
         }
+
+
+        ivyOrgPath =
+                ivyOrganisation.replaceAll(
+                        "\\.",
+                        "/"
+                );
 
 
         ivyModule =
