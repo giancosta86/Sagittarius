@@ -79,7 +79,7 @@ public class HttpPolling extends Task {
 
         throw new RuntimeException(
                 String.format(
-                        "Cannot get URL '%s'",
+                        "Cannot poll URL '%s'",
                         url
                 )
         );
